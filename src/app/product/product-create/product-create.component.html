@@ -1,0 +1,62 @@
+ <div class="container mt-5">
+   <button class="btn btn-primary" routerLink="/"><i class="fas fa-chevron-left"></i> Volver</button>
+   <div class="row justify-content-center mt-4 mb-5">
+     <div class="col-10 col-sm-8 col-md-8 mt-3 mb-5">
+       <h1 class="titulo mb-4">Agregar nuevo Producto</h1>
+      <form [formGroup]="producto_form" (ngSubmit)="guardar()">
+        <div class="form-group">
+          <label >Agrega un nombre a tu producto</label>
+          <input type="text" class="form-control"   formControlName="nombre" placeholder="nombre">
+          <div *ngIf="producto_form.controls['nombre'].invalid && producto_form.controls['nombre'].dirty" class="alert   alert-danger" role="alert">
+            <span *ngIf="producto_form.controls['nombre'].errors.required" >nombre es requerido </span>
+            </div>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Describe tu producto</label>
+          <textarea class="form-control" formControlName="descripcion" placeholder="descripcion" id="exampleFormControlTextarea1" rows="3"></textarea>
+          <div *ngIf="producto_form.controls['descripcion'].invalid && producto_form.controls['descripcion'].dirty" class="alert   alert-danger" role="alert">
+            <span *ngIf="producto_form.controls['descripcion'].errors.required" >descripcion es requerido </span>
+            </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <label for="">precio </label>
+            <input type="number" class="form-control" formControlName="precio" placeholder="precio" >
+            <div *ngIf="producto_form.controls['precio'].invalid && producto_form.controls['precio'].dirty" class="alert   alert-danger" role="alert">
+              <span *ngIf="producto_form.controls['precio'].errors.required" >precio es requerido y debe contener solo numeros</span>
+              </div>
+          </div>
+          <div class="col">
+            <label for="">cantidad </label>
+            <input type="number" class="form-control"formControlName="cantidad" placeholder="cantidad" >
+            <div *ngIf="producto_form.controls['cantidad'].invalid && producto_form.controls['cantidad'].dirty" class="alert   alert-danger" role="alert">
+              <span *ngIf="producto_form.controls['cantidad'].errors.required" >cantidad es requerido y debe contener solo numeros </span>
+              </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class=" mt-3">
+            <img class="img-prev" [src]="url || 'assets/img/noimage.jpg'" />
+          </div>
+          <div class="custom-file mt-3">
+            <label class="custom-file-label" for="imagen">Agrega una imagen a tu producto</label>
+            <input type="file" (change)="upload($event)" class="form-control-file" formControlName="imagenUrl" id="imagen">
+            <div *ngIf="producto_form.controls['imagenUrl'].invalid && producto_form.controls['imagenUrl'].dirty"     class="alert   alert-danger" role="alert">
+            <span *ngIf="FormClient.controls['imagenUrl'].errors.required" >la Imagen es requerido </span>
+            </div>
+            <div class="progress mt-5">
+              <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+        <button *ngIf="!loading" type="submit" class="btn btn-primary  button-save mt-5"
+        [disabled]="producto_form.invalid &&  !imagenUrl "
+        >Guardar <i class="fas fa-save"></i></button>
+        <button *ngIf="loading" type="button" disabled class="btn btn-success button-save ">
+          <i class="fa fa-spin fa-sync"></i>
+          Espere por favor...
+        </button>
+      </form>
+     </div>
+   </div>
+ </div>
